@@ -10,7 +10,7 @@ export class AuthService{
       userName,
       firstName: 'Biljana',
       lastName: 'Sotirovska',
-      id: 456
+      id: Math.random()
     };
   }
 
