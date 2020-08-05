@@ -6,18 +6,37 @@ import {IEventModel} from './shared';
 @Component({
   templateUrl: './create-event.component.html',
   styles: [
-    `em {float: right; color: #E05C65; padding-left: 10px;}
-    .error input {background-color: #E3C3C5;}
-    .error ::-webkit-input-placeholder {color: #999;}
-    .error ::-moz-placeholder {color: #999;}
-    .error :-moz-placeholder {color: #999;}
-    .error :-ms-input-placeholder {color: #999;}`
+      `em {
+      float: right;
+      color: #E05C65;
+      padding-left: 10px;
+    }
+
+    .error input {
+      background-color: #E3C3C5;
+    }
+
+    .error ::-webkit-input-placeholder {
+      color: #999;
+    }
+
+    .error ::-moz-placeholder {
+      color: #999;
+    }
+
+    .error :-moz-placeholder {
+      color: #999;
+    }
+
+    .error :-ms-input-placeholder {
+      color: #999;
+    }`
   ]
 })
 export class CreateEventComponent {
-  newEvent: IEventModel;
+  newEvent: any;
   name: string;
-  date: Date;
+  date: string;
   time: string;
   price: number;
   address: string;
@@ -26,13 +45,13 @@ export class CreateEventComponent {
   onlineUrl: string;
   imageUrl: string;
   isDirty = true;
+
   constructor(private router: Router, private eventService: EventService) {
   }
 
-  saveEvent(formValues): void{
+  saveEvent(formValues): void {
     // console.log(this.onlineUrl, this.name, this.country);
     this.newEvent = {
-      id: 100,
       name: formValues.name,
       date: formValues.date,
       time: formValues.time,
@@ -46,11 +65,13 @@ export class CreateEventComponent {
       onlineUrl: formValues.onlineUrl,
       sessions: []
     };
-    this.eventService.saveEvent(this.newEvent);
-    this.router.navigate(['events']);
+
+    this.eventService.saveEvent(this.newEvent).subscribe(() => {
+      this.router.navigate(['events']);
+    });
   }
 
-  cancel(): void{
+  cancel(): void {
     this.router.navigate(['/events']);
   }
 }

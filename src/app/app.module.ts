@@ -2,6 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import {
   EventsListComponent,
@@ -11,6 +12,7 @@ import {
   CreateEventComponent,
   EventRouteActivator,
   EventsResolver,
+  EventDetailResolver,
   CreateEventSessionsComponent,
   SessionsComponent,
   DurationPipe,
@@ -59,7 +61,8 @@ declare let jQuery: object;*/
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     EventService,
@@ -73,6 +76,7 @@ declare let jQuery: object;*/
     },
     EventRouteActivator,
     EventsResolver,
+    EventDetailResolver,
     AuthService,
     VotingService,
     {

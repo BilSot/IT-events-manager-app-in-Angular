@@ -31,10 +31,21 @@ export class UserProfileComponent implements OnInit{
     });
   }
 
+  logoutUser(): void{
+    this.authService.logoutUser().subscribe(() => {
+      this.route.navigate(['user/login']);
+    });
+  }
+
   updateProfile(profileFormValue): void{
     if (this.profileForm.valid) {
-      this.authService.updateProfile(profileFormValue.firstName, profileFormValue.lastName);
-      this.toastr.success('Profile updated');
+      this.authService.updateProfile(profileFormValue.firstName, profileFormValue.lastName).subscribe(res => {
+        if(!res){
+          return;
+        }else{
+          this.toastr.success('Profile updated');
+        }
+      });
       // this.route.navigate(['events']);
     }
   }

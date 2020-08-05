@@ -4,15 +4,15 @@ import {
   EventsListComponent,
   EventDetailsComponent,
   CreateEventComponent,
-  EventRouteActivator,
   EventsResolver,
-  CreateEventSessionsComponent
+  CreateEventSessionsComponent,
+  EventDetailResolver
 } from './events';
 
 export const routes: Routes = [
   {path: 'events', component: EventsListComponent, resolve: {events: EventsResolver}},
   {path: 'events/new', component: CreateEventComponent, canDeactivate: ['canDeactivateCreateEvent']},
-  {path: 'events/:id', component: EventDetailsComponent, canActivate: [EventRouteActivator]},
+  {path: 'events/:id', component: EventDetailsComponent, resolve: {event: EventDetailResolver}},
   {path: 'events/sessions/new', component: CreateEventSessionsComponent},
   {path: '404', component: Error404Component},
   {path: '', redirectTo: '/events', pathMatch: 'full'},

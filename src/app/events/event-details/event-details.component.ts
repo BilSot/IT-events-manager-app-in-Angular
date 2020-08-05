@@ -22,9 +22,9 @@ export class EventDetailsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.route.params.forEach((params: Params) => {
-      this.event = this.eventService.getEvent( +params.id);
-      this.addSessionMode = false;
+    this.route.data.forEach((data) => {
+        this.event = data.event;
+        this.addSessionMode = false;
     });
     // this.event = this.eventService.getEvent( +this.route.snapshot.params.id);
   }
@@ -37,7 +37,7 @@ export class EventDetailsComponent implements OnInit{
     const maxSessionId = Math.max.apply(null,  this.event.sessions.map(s => s.id));
     session.id = maxSessionId + 1;
     this.event.sessions.push(session);
-    this.eventService.updateEvent(this.event);
+    this.eventService.saveEvent(this.event).subscribe();
     this.addSessionMode = false;
   }
 

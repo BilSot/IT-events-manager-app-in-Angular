@@ -27,11 +27,11 @@ export class EventsListComponent implements OnInit{
     this.events = this.route.snapshot.data.events;
   }
 
-  /*showEventsName(name): void{
-    this.toastrService.success(name);
-  }*/
+    /*showEventsName(name): void{
+      this.toastrService.success(name);
+    }*/
 
-  /*handleOnClickOnParent(data){
-    console.log(data);
-  }*/
-}
+    /*handleOnClickOnParent(data){
+      console.log(data);
+    }*/
+  }

@@ -10,8 +10,8 @@ import {IEventModel} from './shared';
     <div>Time: {{event.time}}</div>
     <div>Price: {{event.price | currency:'EUR'}}</div>
     <div>
-      <span>Location: {{event.location.address}}</span>
-      <span class="pad-left">{{event.location.city}}, {{event.location.country}}</span>
+      <span>Location: {{event.location?.address}}</span>
+      <span class="pad-left">{{event.location?.city}}, {{event.location?.country}}</span>
     </div>
 <!--      <button type="button" class="btn btn-primary" (click)="handleClickOnThumb()" >Click me</button>-->
   </div>

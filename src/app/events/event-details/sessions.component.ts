@@ -8,6 +8,7 @@ import {AuthService} from '../../user/auth.service';
   templateUrl: './sessions.component.html'
 })
 export class SessionsComponent implements OnChanges {
+  @Input() eventId: number;
   @Input() sessions: ISession[];
   @Input() filterBy: string;
   @Input() sortBy: string;
@@ -17,17 +18,21 @@ export class SessionsComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    this.filterSessions(this.filterBy);
+    this.filterSessions();
+    this.sortSessions();
+  }
+
+  sortSessions(): void {
     this.sortBy === 'name' ? this.visibleSessions.sort(this.sortByNameAsc) : this.visibleSessions.sort(this.sortByVotersDesc);
   }
 
-  filterSessions(filter: string): void {
+  filterSessions(): void {
     if (this.sessions) {
-      if (filter === 'all') {
-        this.visibleSessions = this.sessions.map(session => session);
+      if (this.filterBy === 'all') {
+        this.visibleSessions = [...this.sessions]; // this.sessions.map(session => session);
       } else {
         this.visibleSessions = this.sessions.filter(session => {
-          return session.level.toLowerCase() === filter;
+          return session.level.toLowerCase() === this.filterBy;
         });
       }
     }
@@ -48,9 +53,9 @@ export class SessionsComponent implements OnChanges {
 
   toggleVote(session: ISession): void {
     if (!this.userHasVoted(session)) {
-      this.voteService.addVoter(this.auth.userModel.userName, session);
+      this.voteService.addVoter(this.eventId, this.auth.userModel.userName, session);
     }else{
-      this.voteService.removeVoter(this.auth.userModel.userName, session);
+      this.voteService.removeVoter(this.eventId, this.auth.userModel.userName, session);
     }
 
     if(this.sortBy === 'voters'){
